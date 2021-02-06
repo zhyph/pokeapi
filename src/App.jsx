@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   const [poke, setPoke] = useState([]); //recebe pokemons
-  const [pokeID, setPokeID] = useState([]); //recebe pokemonid
+  const [pokeID, setPokeID] = useState(""); //recebe pokemonid
   const [submit, setSubmit] = useState("");
   const [query, setQuery] = useState("bulbasaur");
   const [id, setId] = useState(1);
@@ -35,11 +35,11 @@ function App() {
   };
 
   const getPokeId = async () => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/` + id);
     // console.log(response)
     const data = await response.json();
-    setPokeID({ pokeID: data });
-    console.log(pokeID);
+    setPokeID(data);
+    console.log(data);
   };
 
   const getPokemons = async () => {
@@ -47,7 +47,7 @@ function App() {
     // console.log(response)
     const data = await response.json();
     setPoke(data.results);
-    // console.log(data.results);
+    console.log(data.results);
   };
 
   const updateSearch = (e) => {
@@ -60,6 +60,17 @@ function App() {
     setSubmit("");
     getUrlId();
     getPokeId();
+  };
+
+  const fodase = () => {
+    if (pokeID !== "") {
+      return (
+        <img
+          src={pokeID.sprites.other.dream_world.front_default}
+          alt="pokeman"
+        />
+      );
+    }
   };
 
   return (
@@ -75,6 +86,8 @@ function App() {
           GO!
         </button>
       </form>
+      {pokeID.height}
+      {fodase()}
     </div>
   );
 }
