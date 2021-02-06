@@ -9,45 +9,23 @@ export default function App() {
   const [nome, setnome] = useState();
   const [imagem, setimagem] = useState(false);
 
-  /*const getPokemons = async () => { // COM FETCH
-
-    if (nome) {
-      document.getElementById('buttonbuscar').value = ''
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/` + nome);
-      const data = await response.json();
-      setimagem(data.sprites.other["official-artwork"].front_default)
-      console.log(imagem)
-      console.log(data);
-      setnome(false)
-    } else {
-      window.alert('Precisa inserir um nome')
-    }
-  
-*/
 
   const getPokemons = async () => {
     if (document.getElementById('buttonbuscar').value !== '') {
       document.getElementById('buttonbuscar').value = ''
       axios.get(`https://pokeapi.co/api/v2/pokemon/` + nome).then((res) => {
         console.log(res.data)
-        setimagem(res.data.sprites.other["official-artwork"].front_default) 
-         setnome(false)
+        setimagem(res.data.sprites.other["official-artwork"].front_default)
+        setnome(false)
       }).catch((erro) => {
-
         console.log(erro)
-
         window.alert('O nome do pokemon não existe')
         setimagem(false)
-        
-      
-      
       })
     } else {
       window.alert('Precisa inserir um nome')
     }
-
   };
-
 
   return (
 
@@ -71,7 +49,7 @@ export default function App() {
 
       <img width='200px'
         height='200px'
-        style={{borderRadius:'50%'}}
+        style={{ borderRadius: '50%' }}
         src={imagem ? imagem : imgpadrao} />
 
     </div>
@@ -79,3 +57,18 @@ export default function App() {
   );
 }
 
+
+
+  /*const getPokemons = async () => { // COM FETCH
+    if (nome) {
+      document.getElementById('buttonbuscar').value = ''
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/` + nome);
+      const data = await response.json();
+      setimagem(data.sprites.other["official-artwork"].front_default)
+      console.log(imagem)
+      console.log(data);
+      setnome(false)
+    } else {
+      window.alert('Precisa inserir um nome')
+    }  
+*/
